@@ -31,7 +31,7 @@
         td {
             border: none;
             text-align: left;
-            padding: 8px;
+            padding: 5px;
         }
 
         tr:nth-child(even) {
@@ -65,18 +65,19 @@
 
     <!-- <h3 class="centered">Search for a word</h3> -->
     <div class="centered" style="padding-bottom: 20px;">
-        <input id="autoComplete">
+        <input id="autoComplete" />
+        <button class="command-btn random-word-btn">Random Word</button>
     </div>
 
 
     <table>
         <tr>
-            <th>Case / відмінок</th>
-            <th>Singular / однина</th>
-            <th>Plural / множина</th>
+            <th>Case / Відмінок</th>
+            <th>Singular / Однина</th>
+            <th>Plural / Множина</th>
         </tr>
         <tr>
-            <td>Nominative / називний</td>
+            <td>Nominative / Називний</td>
             <td id="td-singular-nominative">
                 <span id="singular-nominative" class="singular text"></span>
                 <input class="ans singular input-box" type="text" id="singular-nominative-input">
@@ -88,7 +89,7 @@
             </td>
         </tr>
         <tr>
-            <td>Genitive / родовий</td>
+            <td>Genitive / Родовий</td>
             <td id="td-singular-genitive">
                 <span id="singular-genitive" class="singular text"></span>
                 <input class="ans singular input-box" type="text" id="singular-genitive-input">
@@ -99,7 +100,7 @@
             </td>
         </tr>
         <tr>
-            <td>Dative / давальний</td>
+            <td>Dative / Давальний</td>
             <td id="td-singular-dative">
                 <span id="singular-dative" class="singular text"></span>
                 <input class="ans singular input-box" type="text" id="singular-dative-input">
@@ -110,7 +111,7 @@
             </td>
         </tr>
         <tr>
-            <td>Accusative / знахідний</td>
+            <td>Accusative / Знахідний</td>
             <td id="td-singular-accusative">
                 <span id="singular-accusative" class="singular text"></span>
                 <input class="ans singular input-box" type="text" id="singular-accusative-input">
@@ -121,7 +122,7 @@
             </td>
         </tr>
         <tr>
-            <td>Instrumental / орудний</td>
+            <td>Instrumental / Орудний</td>
             <td id="td-singular-instrumental">
                 <span id="singular-instrumental" class="singular text"></span>
                 <input class="ans singular input-box" type="text" id="singular-instrumental-input">
@@ -132,7 +133,7 @@
             </td>
         </tr>
         <tr>
-            <td>Locative / місцевий</td>
+            <td>Locative / Місцевий</td>
             <td id="td-singular-locative">
                 <span id="singular-locative" class="singular text"></span>
                 <input class="ans singular input-box" type="text" id="singular-locative-input">
@@ -143,7 +144,7 @@
             </td>
         </tr>
         <tr>
-            <td>Vocative / кличний</td>
+            <td>Vocative / Кличний</td>
             <td id="td-singular-vocative">
                 <span id="singular-vocative" class="singular text"></span>
                 <input class="ans singular input-box" type="text" id="singular-vocative-input">
@@ -198,18 +199,9 @@
             hint.innerText = `Noun information: ${info}\nNoun definition: ${defs[0]}`;
         }
     </script>
-    <h2 class="centered" style="margin-top: 15px;">
-        Common Words
-        </h3>
-        <div class="word-selection centered">
-            <!-- create buttons for the first 10 nouns in the list -->
-        </div>
-        <div class="centered"><button onclick="random_words(10)" class="command-btn random-words-btn">Select random
-                words</button>
-        </div>
 
-        <!-- create buttons for all letters in Ukrainian alphabet and when they are pressed, type that letter -->
-        <h3 class="centered">Ukrainian Keyboard
+    <!-- create buttons for all letters in Ukrainian alphabet and when they are pressed, type that letter -->
+    <h2 class="centered">Ukrainian Keyboard
     </h2>
     <!-- create one input field that will hold all of our text -->
     <div class="centered" style="margin-bottom: 20px;">
@@ -259,7 +251,15 @@
 
 
 
-
+        <h2 class="centered" style="margin-top: 15px;">
+            Common Words
+        </h2>
+        <div class="word-selection centered">
+            <!-- create buttons for the first 10 nouns in the list -->
+        </div>
+        <div class="centered"><button onclick="random_words(10)" class="command-btn random-words-btn">Select random
+                words</button>
+        </div>
 
 
         <script>
