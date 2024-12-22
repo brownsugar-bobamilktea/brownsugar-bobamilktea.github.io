@@ -280,6 +280,7 @@
                     else {
                         // remove the stress mark from the input value and the correct values
                         let input_value = input.value.replace(/́/g, "");
+                        console.log(`checking ${input_value} in ${correct_values}`);
                         let correct_choices = correct_values[input.id]; // list of correct values
                         // if the value is not empty, check if it is correct by see if it matches any of the correct values
                         if (correct_choices.includes(input_value)) {
@@ -333,6 +334,9 @@
                 $(".text").text("");
                 // clean the hint div
                 $("#hint").text("");
+                // clear all input values and set the background color to white
+                $(".input-box").val("");
+                $(".input-box").css("background-color", "white");
                 $("#noun_to_guess").text(noun_obj["word"]);
 
                 // if there are no plural values, disable the inputs for the plural values
@@ -389,18 +393,16 @@
                     "singular-vocative-input": noun_obj["forms"]["voc ns"],
                     "plural-vocative-input": noun_obj["forms"]["voc np"]
                 };
-
-                // set the "noun_to_guess" span to the word
-                // $("#noun_to_guess").text(noun_obj["word"]);
+                console.log(correct_values);
             }
 
             // create 10 buttons for the first 10 nouns
             set_noun_buttons_by_indices([...Array(10).keys()]);
 
-            // var the_noun = nouns[84]; // гро́ші, indeclinable
+            var the_noun = nouns[84]; // гро́ші, indeclinable
             // var the_noun = nouns[42]; // ви́бори, plural only
-            var the_noun = nouns[0]; // Украї́на, singular only
-            var the_noun = nouns[1]; // рік, singular and plural
+            // var the_noun = nouns[0]; // Украї́на, singular only
+            // var the_noun = nouns[1]; // рік, singular and plural
             // console.log(the_noun);
             set_table(the_noun);
 
