@@ -170,7 +170,7 @@
         function random_words(num_words = 10) {
             // get the number of words in the list of nouns
             const num_nouns = nouns.length;
-            console.log(num_nouns);
+            // console.log(num_nouns);
             // create a list of random numbers from 0 to num_nouns
             let random_numbers = [];
             while (random_numbers.length < num_words) {
@@ -280,7 +280,7 @@
                     else {
                         // remove the stress mark from the input value and the correct values
                         let input_value = input.value.replace(/́/g, "");
-                        console.log(`checking ${input_value} in ${correct_values}`);
+                        // console.log(`checking ${input_value} in ${correct_values}`);
                         let correct_choices = correct_values[input.id]; // list of correct values
                         // if the value is not empty, check if it is correct by see if it matches any of the correct values
                         if (correct_choices.includes(input_value)) {
@@ -393,7 +393,7 @@
                     "singular-vocative-input": noun_obj["forms"]["voc ns"],
                     "plural-vocative-input": noun_obj["forms"]["voc np"]
                 };
-                console.log(correct_values);
+                // console.log(correct_values);
             }
 
             // create 10 buttons for the first 10 nouns
