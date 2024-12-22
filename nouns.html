@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Ukrainian Noun Quiz</title>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="nouns_file.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.9/dist/autoComplete.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.9/dist/css/autoComplete.01.min.css">
+    <link rel="stylesheet" href="./buttons.css">
+    <link rel="stylesheet" href="./text-input.css">
+    <style>
+        /* set font to helvetica neue */
+        body {
+            font-family: "Helvetica Neue", sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+        th,
+        td {
+            border: none;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .centered {
+            text-align: center;
+            /* margin: 0 auto;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center; */
+        }
+
+        /* color: #FFD800;
+    background-color: #0056B9; */
+    </style>
+</head>
+
+<body>
+
+    <!-- create a borderless 7x2 table with the 7 cases and 2 numbers (singular, plural) in Ukrainian -->
+    <h1 class="centered">Ukrainian Quiz</h1>
+    <h2 class="centered">Fill in the blanks with the correct form of the noun: <span id="noun_to_guess"></span></h2>
+
+    <!-- <h3 class="centered">Search for a word</h3> -->
+    <div class="centered" style="padding-bottom: 20px;">
+        <input id="autoComplete">
+    </div>
+
+
+    <table>
+        <tr>
+            <th>Case / відмінок</th>
+            <th>Singular / однина</th>
+            <th>Plural / множина</th>
+        </tr>
+        <tr>
+            <td>Nominative / називний</td>
+            <td id="td-singular-nominative">
+                <span id="singular-nominative" class="singular text"></span>
+                <input class="ans singular input-box" type="text" id="singular-nominative-input">
+
+            </td>
+            <td id="td-plural-nominative">
+                <span id="plural-nominative" class="plural text"></span>
+                <input class="ans plural input-box" type="text" id="plural-nominative-input">
+            </td>
+        </tr>
+        <tr>
+            <td>Genitive / родовий</td>
+            <td id="td-singular-genitive">
+                <span id="singular-genitive" class="singular text"></span>
+                <input class="ans singular input-box" type="text" id="singular-genitive-input">
+            </td>
+            <td id="td-plural-genitive">
+                <span id="plural-genitive" class="plural text"></span>
+                <input class="ans plural input-box" type="text" id="plural-genitive-input">
+            </td>
+        </tr>
+        <tr>
+            <td>Dative / давальний</td>
+            <td id="td-singular-dative">
+                <span id="singular-dative" class="singular text"></span>
+                <input class="ans singular input-box" type="text" id="singular-dative-input">
+            </td>
+            <td id="td-plural-dative">
+                <span id="plural-dative" class="plural text"></span>
+                <input class="ans plural input-box" type="text" id="plural-dative-input">
+            </td>
+        </tr>
+        <tr>
+            <td>Accusative / знахідний</td>
+            <td id="td-singular-accusative">
+                <span id="singular-accusative" class="singular text"></span>
+                <input class="ans singular input-box" type="text" id="singular-accusative-input">
+            </td>
+            <td id="td-plural-accusative">
+                <span id="plural-accusative" class="plural text"></span>
+                <input class="ans plural input-box" type="text" id="plural-accusative-input">
+            </td>
+        </tr>
+        <tr>
+            <td>Instrumental / орудний</td>
+            <td id="td-singular-instrumental">
+                <span id="singular-instrumental" class="singular text"></span>
+                <input class="ans singular input-box" type="text" id="singular-instrumental-input">
+            </td>
+            <td id="td-plural-instrumental">
+                <span id="plural-instrumental" class="plural text"></span>
+                <input class="ans plural input-box" type="text" id="plural-instrumental-input">
+            </td>
+        </tr>
+        <tr>
+            <td>Locative / місцевий</td>
+            <td id="td-singular-locative">
+                <span id="singular-locative" class="singular text"></span>
+                <input class="ans singular input-box" type="text" id="singular-locative-input">
+            </td>
+            <td id="td-plural-locative">
+                <span id="plural-locative" class="plural text"></span>
+                <input class="ans plural input-box" type="text" id="plural-locative-input">
+            </td>
+        </tr>
+        <tr>
+            <td>Vocative / кличний</td>
+            <td id="td-singular-vocative">
+                <span id="singular-vocative" class="singular text"></span>
+                <input class="ans singular input-box" type="text" id="singular-vocative-input">
+            </td>
+            <td id="td-plural-vocative">
+                <span id="plural-vocative" class="plural text"></span>
+                <input class="ans plural input-box" type="text" id="plural-vocative-input">
+            </td>
+        </tr>
+    </table>
+    <div id="hint" class="centered"></div>
+    <div class="centered">
+        <!-- button to show hint -->
+        <button onclick="show_hint()" id="show-hint-btn" class="button-3 hint-btn">Show Hint</button>
+        <!-- button to call a check_answer function -->
+        <button onclick="check_answer()" id="check-ans-btn" class="button-3 ans-btn">Check Answer</button>
+    </div>
+
+    <script>
+        // global variables
+        var correct_values; // dictionary of correct values
+        var the_noun; // the noun object that is currently being displayed
+
+        function random_words(num_words = 10) {
+            // get the number of words in the list of nouns
+            const num_nouns = nouns.length;
+            console.log(num_nouns);
+            // create a list of random numbers from 0 to num_nouns
+            let random_numbers = [];
+            while (random_numbers.length < num_words) {
+                let random_number = Math.floor(Math.random() * num_nouns);
+                if (!random_numbers.includes(random_number)) {
+                    random_numbers.push(random_number);
+                }
+            }
+            // set the buttons to the random words
+            set_noun_buttons_by_indices(random_numbers);
+        }
+
+        function typeletter() {
+            // set the value of the keyboard-input to the value of the button that was pressed
+            let letter = event.target.innerText;
+            let input = document.getElementById("keyboard-input");
+            input.value += letter;
+        }
+        function show_hint() {
+            // get the hint div
+            let hint = document.getElementById("hint");
+            // get info as the hint["info"] and hint["defs"][0]
+            const info = the_noun["info"];
+            const defs = the_noun["defs"];
+            hint.innerText = `Noun information: ${info}\nNoun definition: ${defs[0]}`;
+        }
+    </script>
+    <h2 class="centered" style="margin-top: 15px;">
+        Common Words
+        </h3>
+        <div class="word-selection centered">
+            <!-- create buttons for the first 10 nouns in the list -->
+        </div>
+        <div class="centered"><button onclick="random_words(10)" class="button-3 random-words-btn">Select random
+                words</button>
+        </div>
+
+        <!-- create buttons for all letters in Ukrainian alphabet and when they are pressed, type that letter -->
+        <h3 class="centered">Ukrainian Keyboard
+    </h2>
+    <!-- create one input field that will hold all of our text -->
+    <div class="centered" style="margin-bottom: 20px;">
+        <input type="text" id="keyboard-input" class="input-box">
+    </div>
+    <div class="centered">
+        <!-- 3 divs based on Ukrainian keyboard layout -->
+        <div>
+            <button onclick="typeletter()" class="keyboard-btn">й</button>
+            <button onclick="typeletter()" class="keyboard-btn">ц</button>
+            <button onclick="typeletter()" class="keyboard-btn">у</button>
+            <button onclick="typeletter()" class="keyboard-btn">к</button>
+            <button onclick="typeletter()" class="keyboard-btn">е</button>
+            <button onclick="typeletter()" class="keyboard-btn">н</button>
+            <button onclick="typeletter()" class="keyboard-btn">г</button>
+            <button onclick="typeletter()" class="keyboard-btn">ш</button>
+            <button onclick="typeletter()" class="keyboard-btn">щ</button>
+            <button onclick="typeletter()" class="keyboard-btn">з</button>
+            <button onclick="typeletter()" class="keyboard-btn">х</button>
+            <button onclick="typeletter()" class="keyboard-btn">ї</button>
+            <button onclick="typeletter()" class="keyboard-btn">ґ</button>
+        </div>
+        <div>
+            <button onclick="typeletter()" class="keyboard-btn">ф</button>
+            <button onclick="typeletter()" class="keyboard-btn">і</button>
+            <button onclick="typeletter()" class="keyboard-btn">в</button>
+            <button onclick="typeletter()" class="keyboard-btn">а</button>
+            <button onclick="typeletter()" class="keyboard-btn">п</button>
+            <button onclick="typeletter()" class="keyboard-btn">р</button>
+            <button onclick="typeletter()" class="keyboard-btn">о</button>
+            <button onclick="typeletter()" class="keyboard-btn">л</button>
+            <button onclick="typeletter()" class="keyboard-btn">д</button>
+            <button onclick="typeletter()" class="keyboard-btn">ж</button>
+            <button onclick="typeletter()" class="keyboard-btn">є</button>
+        </div>
+        <div>
+            <button onclick="typeletter()" class="keyboard-btn">я</button>
+            <button onclick="typeletter()" class="keyboard-btn">ч</button>
+            <button onclick="typeletter()" class="keyboard-btn">с</button>
+            <button onclick="typeletter()" class="keyboard-btn">м</button>
+            <button onclick="typeletter()" class="keyboard-btn">и</button>
+            <button onclick="typeletter()" class="keyboard-btn">т</button>
+            <button onclick="typeletter()" class="keyboard-btn">ь</button>
+            <button onclick="typeletter()" class="keyboard-btn">б</button>
+            <button onclick="typeletter()" class="keyboard-btn">ю</button>
+        </div>
+
+
+
+
+
+
+        <script>
+
+
+            function check_answer() {
+                // get all values from inputs of class "ans"
+                let inputs = document.getElementsByClassName("ans");
+                // loop through all inputs, printing their id and value
+                for (let i = 0; i < inputs.length; i++) {
+                    let input = inputs[i];
+                    // console.log(input.id, input.value);
+                    // if the value is empty after clearing whitespace, set the background color to white
+                    if (input.value.trim() === "") {
+                        input.style.backgroundColor = "white";
+                        input.value = "";
+                    }
+                    else {
+                        // remove the stress mark from the input value and the correct values
+                        let input_value = input.value.replace(/́/g, "");
+                        let correct_choices = correct_values[input.id]; // list of correct values
+                        // if the value is not empty, check if it is correct by see if it matches any of the correct values
+                        if (correct_choices.includes(input_value)) {
+                            // if it is correct, set the background color to green
+                            input.style.backgroundColor = "lightgreen";
+                        } else {
+                            // if it is incorrect, set the background color to light red
+                            input.style.backgroundColor = "lightcoral";
+                        }
+                    }
+                }
+            }
+
+            function set_noun_buttons_by_indices(indices, num_rows = 2) {
+                // clear the word-selection div
+                $(".word-selection").empty();
+                let nouns_to_set = [];
+                // create buttons for the words at the indices
+                for (let i = 0; i < indices.length; i++) {
+                    let noun = nouns[indices[i]];
+                    let button = document.createElement("button");
+                    button.className = "common-words-btn";
+                    button.innerText = noun["word"];
+                    button.onclick = function () {
+                        set_table(noun);
+                    }
+                    nouns_to_set.push(noun);
+                    // document.querySelector(".word-selection").appendChild(button);
+                }
+                // for each row, create a div with the buttons
+                for (let i = 0; i < num_rows; i++) {
+                    let div = document.createElement("div");
+                    div.className = "centered";
+                    for (let j = 0; j < indices.length / num_rows; j++) {
+                        let noun = nouns_to_set[i * (indices.length / num_rows) + j];
+                        let button = document.createElement("button");
+                        button.className = "common-words-btn";
+                        button.innerText = noun["word"];
+                        button.onclick = function () {
+                            set_table(noun);
+                        }
+                        div.appendChild(button);
+                    }
+                    document.querySelector(".word-selection").appendChild(div);
+                }
+            }
+
+            function set_table(noun_obj) {
+                the_noun = noun_obj;
+                // clear all .text values
+                $(".text").text("");
+                // clean the hint div
+                $("#hint").text("");
+                $("#noun_to_guess").text(noun_obj["word"]);
+
+                // if there are no plural values, disable the inputs for the plural values
+                if (!noun_obj["forms"]["nom np"]) {
+                    $(".plural.ans").hide();
+                }
+                else { // else, show the inputs
+                    $(".plural.ans").show();
+                }
+                // if there are no singular values, disable the inputs for the singular values
+                if (!noun_obj["forms"]["nom ns"]) {
+                    $(".singular.ans").hide();
+                } else {
+                    $(".singular.ans").show();
+                }
+                /*
+                Set the initial nominative values with this rules:
+                1. If there is no nominative singular or plural, hide inputs for both, and set the singular nominative to noun_obj["word"]
+                2. If there is a nominative singular, set the singular nominative to that value
+                3. If there is no nominative singular, set the singular nominative to the nominative plural
+                */
+                // case 1: if there is no nominative singular or plural (indeclinable), hide inputs for both singular and plural, and set all .text to "-"
+                if (Object.keys(noun_obj["forms"]).length === 0) {
+                    $(".ans").hide();
+                    $(".text").text("-");
+                    $("#noun_to_guess").text(noun_obj["word"] + " (indeclinable)");
+                    return;
+                }
+                // case 2: if there is a nominative singular, set the singular nominative to that value, and hide the corresponding input
+                if (noun_obj["forms"]["nom ns"]) {
+                    $("#singular-nominative").text(noun_obj["forms"]["nom ns"]);
+                    $("#singular-nominative-input").hide();
+                }
+                // case 3: if there is no nominative singular, but there is a nominative plural, set the singular nominative to the nominative plural, and hide the corresponding input
+                else {
+                    $("#plural-nominative").text(noun_obj["forms"]["nom np"]);
+                    $("#plural-nominative-input").hide();
+                }
+                // document.getElementById("singular-nominative").innerText = noun_obj["forms"]["nom ns"];
+                // defeine 14 variables for each of the 7x2 values as a dictionary corresponding to the ids of the inputs
+                correct_values = {
+                    "singular-nominative-input": noun_obj["forms"]["nom ns"],
+                    "plural-nominative-input": noun_obj["forms"]["nom np"],
+                    "singular-genitive-input": noun_obj["forms"]["gen ns"],
+                    "plural-genitive-input": noun_obj["forms"]["gen np"],
+                    "singular-dative-input": noun_obj["forms"]["dat ns"],
+                    "plural-dative-input": noun_obj["forms"]["dat np"],
+                    "singular-accusative-input": noun_obj["forms"]["acc ns"],
+                    "plural-accusative-input": noun_obj["forms"]["acc np"],
+                    "singular-instrumental-input": noun_obj["forms"]["ins ns"],
+                    "plural-instrumental-input": noun_obj["forms"]["ins np"],
+                    "singular-locative-input": noun_obj["forms"]["loc ns"],
+                    "plural-locative-input": noun_obj["forms"]["loc np"],
+                    "singular-vocative-input": noun_obj["forms"]["voc ns"],
+                    "plural-vocative-input": noun_obj["forms"]["voc np"]
+                };
+
+                // set the "noun_to_guess" span to the word
+                // $("#noun_to_guess").text(noun_obj["word"]);
+            }
+
+            // create 10 buttons for the first 10 nouns
+            set_noun_buttons_by_indices([...Array(10).keys()]);
+
+            // var the_noun = nouns[84]; // гро́ші, indeclinable
+            // var the_noun = nouns[42]; // ви́бори, plural only
+            var the_noun = nouns[0]; // Украї́на, singular only
+            var the_noun = nouns[1]; // рік, singular and plural
+            // console.log(the_noun);
+            set_table(the_noun);
+
+
+            // autocomplete
+            const just_nouns = nouns.map(noun => noun["word"]);
+            // create a mapping of each noun to its index (reverse lookup)
+            const noun_to_index = {};
+            for (let i = 0; i < nouns.length; i++) {
+                noun_to_index[nouns[i]["word"]] = i;
+            }
+            const autocomplete_object = {
+                selector: "#autoComplete",
+                placeHolder: "Search for Ukrainian words...",
+                threshold: 0,
+                resultsList: {
+                    maxResults: 10,
+                },
+
+                data: {
+                    src: just_nouns,
+                    cache: true,
+                },
+                resultItem: {
+                    highlight: true,
+                },
+                events: {
+                    input: {
+                        selection: (event) => {
+                            const selection = event.detail.selection.value;
+                            // get the index of the noun from the noun_to_index mapping
+                            const index = noun_to_index[selection];
+                            // set the table to the noun at that index
+                            set_table(nouns[index]);
+                        }
+                    }
+                }
+
+            };
+            // create an autocomplete object with the above settings
+            const autoCompleteJS = new autoComplete(autocomplete_object);
+
+
+
+        </script>
+</body>
+
+</html>
