@@ -1,4 +1,4 @@
-.button-3 {
+.command-btn {
     appearance: none;
     border: 1px solid rgba(27, 31, 35, .15);
     border-radius: 6px;
@@ -22,37 +22,37 @@
     white-space: nowrap;
 }
 
-.button-3:focus:not(:focus-visible):not(.focus-visible) {
+.command-btn:focus:not(:focus-visible):not(.focus-visible) {
     box-shadow: none;
     outline: none;
 }
 
-.button-3:hover {
+.command-btn:hover {
     background-color: #2c974b;
 }
 
-.button-3:focus {
+.command-btn:focus {
     box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
     outline: none;
 }
 
-.button-3:disabled {
+.command-btn:disabled {
     background-color: #94d3a2;
     border-color: rgba(27, 31, 35, .1);
     color: rgba(255, 255, 255, .8);
     cursor: default;
 }
 
-.button-3:active {
+.command-btn:active {
     background-color: #298e46;
     box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
 }
 
-.button-3.ans-btn {
+.command-btn.ans-btn {
     background-color: #2ea44f;
 }
 
-.button-3.hint-btn {
+.command-btn.hint-btn {
     background-color: steelblue;
 }
 
