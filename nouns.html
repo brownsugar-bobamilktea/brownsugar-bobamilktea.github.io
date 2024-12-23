@@ -68,7 +68,7 @@
     <!-- <h3 class="centered">Search for a word</h3> -->
     <div class="centered" style="padding-bottom: 20px;">
         <input id="autoComplete" />
-        <button class="command-btn random-word-btn">Random Word</button>
+        <button class="command-btn set-one-random-word-btn" onclick="set_random_word_on_table()">Random Word</button>
     </div>
 
 
@@ -170,7 +170,16 @@
         var correct_values; // dictionary of correct values
         var the_noun; // the noun object that is currently being displayed
 
-        function random_words(num_words = 10) {
+        function set_random_word_on_table() {
+            // get a random index from 0 to the length of the nouns list
+            let random_index = Math.floor(Math.random() * nouns.length);
+            // get the noun object at that index
+            let random_noun = nouns[random_index];
+            // set the table to that noun
+            set_table(random_noun);
+        }
+
+        function random_words_buttons(num_words = 10) {
             // get the number of words in the list of nouns
             const num_nouns = nouns.length;
             // console.log(num_nouns);
@@ -259,7 +268,8 @@
         <div class="word-selection centered">
             <!-- create buttons for the first 10 nouns in the list -->
         </div>
-        <div class="centered"><button onclick="random_words(10)" class="command-btn random-words-btn">Select random
+        <div class="centered"><button onclick="random_words_buttons(10)" class="command-btn random-words-btn">Select
+                random
                 words</button>
         </div>
 
