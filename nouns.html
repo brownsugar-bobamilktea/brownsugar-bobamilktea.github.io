@@ -14,10 +14,48 @@
     <link rel="stylesheet" href="./buttons.css">
     <link rel="stylesheet" href="./text-input.css">
     <style>
-        /* set font to helvetica neue */
-        body {
-            font-family: "Helvetica Neue", sans-serif;
+        :root {
+            --input-bg-light: white;
+            --input-bg-dark: #333;
+
+            --input-bg-correct-light: lightgreen;
+            --input-bg-correct-dark: #006400;
+
+            --input-bg-incorrect-light: lightcoral;
+            --input-bg-incorrect-dark: #8B0000;
+
+            --input-color-light: black;
+            --input-color-dark: white;
         }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                font-family: "Helvetica Neue", sans-serif;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: rgb(24, 24, 24);
+                color: white;
+                font-family: "Helvetica Neue", sans-serif;
+            }
+
+            .ans,
+            #keyboard-input,
+            #autoComplete {
+                background-color: var(--input-bg-dark);
+                color: var(--input-color-dark);
+            }
+
+            .keyboard-btn,
+            .common-words-btn,
+            .set-one-random-word-btn {
+                background-color: #333;
+                color: white;
+            }
+        }
+
 
         table {
             border-collapse: collapse;
@@ -276,6 +314,7 @@
 
         <script>
 
+            const PREFERRED_COLOR_SCHEME = (window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
 
             function check_answer() {
                 // get all values from inputs of class "ans"
@@ -284,9 +323,9 @@
                 for (let i = 0; i < inputs.length; i++) {
                     let input = inputs[i];
                     // console.log(input.id, input.value);
-                    // if the value is empty after clearing whitespace, set the background color to white
+                    // if the value is empty after clearing whitespace, set the background color to original
                     if (input.value.trim() === "") {
-                        input.style.backgroundColor = "white";
+                        input.style.backgroundColor = (PREFERRED_COLOR_SCHEME === "dark") ? "var(--input-bg-dark)" : "var(--input-bg-light)";
                         input.value = "";
                     }
                     else {
@@ -297,10 +336,10 @@
                         // if the value is not empty, check if it is correct by see if it matches any of the correct values
                         if (correct_choices.includes(input_value)) {
                             // if it is correct, set the background color to green
-                            input.style.backgroundColor = "lightgreen";
+                            input.style.backgroundColor = (PREFERRED_COLOR_SCHEME === "dark") ? "var(--input-bg-correct-dark)" : "var(--input-bg-correct-light)";
                         } else {
                             // if it is incorrect, set the background color to light red
-                            input.style.backgroundColor = "lightcoral";
+                            input.style.backgroundColor = (PREFERRED_COLOR_SCHEME === "dark") ? "var(--input-bg-incorrect-dark)" : "var(--input-bg-incorrect-light)";
                         }
                     }
                 }
@@ -348,7 +387,7 @@
                 $("#hint").text("");
                 // clear all input values and set the background color to white
                 $(".input-box").val("");
-                $(".input-box").css("background-color", "white");
+                $(".input-box").css("background-color", (PREFERRED_COLOR_SCHEME === "dark") ? "var(--input-bg-dark)" : "var(--input-bg-light)");
                 $("#noun_to_guess").text(noun_obj["word"]);
 
                 // if there are no plural values, disable the inputs for the plural values
