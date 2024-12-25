@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Ukrainian Noun Quiz</title>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./buttons.css">
+    <link rel="stylesheet" href="./text-input.css">
+    <style>
+        :root {
+            --input-bg-light: white;
+            --input-bg-dark: #333;
+
+            --input-bg-correct-light: lightgreen;
+            --input-bg-correct-dark: #006400;
+
+            --input-bg-incorrect-light: lightcoral;
+            --input-bg-incorrect-dark: #8B0000;
+
+            --input-color-light: black;
+            --input-color-dark: white;
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                font-family: "Helvetica Neue", sans-serif;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: rgb(24, 24, 24);
+                color: white;
+                font-family: "Helvetica Neue", sans-serif;
+            }
+
+            .ans,
+            #keyboard-input,
+            #autoComplete {
+                background-color: var(--input-bg-dark);
+                color: var(--input-color-dark);
+            }
+
+            .keyboard-btn,
+            .common-words-btn,
+            .set-one-random-word-btn {
+                background-color: #333;
+                color: white;
+            }
+
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+        th,
+        td {
+            border: none;
+            text-align: left;
+            padding: 5px;
+        }
+
+        /* tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        */
+
+        th {
+            /* background-color: #4CAF50; */
+            /* color: white; */
+            /* font-weight: 600; */
+        }
+
+        .centered {
+            text-align: center;
+            /* margin: 0 auto;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center; */
+        }
+
+        .ans {
+            width: 70%;
+            text-align: center;
+        }
+
+        /* color: #FFD800;
+    background-color: #0056B9; */
+    </style>
+</head>
+
+<body>
+
+    <!-- create a borderless 6x6 table where each row is a pronoun and each column is a case (Називний, Родовий, Давальний, Знахідний, Орудний, Місцевий) -->
+    <h1 class="centered">Ukrainian Pronoun Declension Quiz</h1>
+    <h2 class="centered">Fill in the blanks with the correct form of the pronoun: <span id="noun_to_guess"></span></h2>
+
+    <table>
+        <tr>
+            <th></th>
+            <th>I</th>
+            <th>You (Sing.)</th>
+            <th>He</th>
+            <th>She</th>
+            <th>It</th>
+            <th>We</th>
+            <th>You (Plu.)</th>
+            <th>Them</th>
+        </tr>
+        <tr>
+            <td>Nominative / Називний</td>
+            <td><input type="text" class="ans" id="nom_s1"></td>
+            <td><input type="text" class="ans" id="nom_s2"></td>
+            <td><input type="text" class="ans" id="nom_s3_he"></td>
+            <td><input type="text" class="ans" id="nom_s3_she"></td>
+            <td><input type="text" class="ans" id="nom_s3_it"></td>
+            <td><input type="text" class="ans" id="nom_p1"></td>
+            <td><input type="text" class="ans" id="nom_p2"></td>
+            <td><input type="text" class="ans" id="nom_p3"></td>
+        </tr>
+        <tr>
+            <td>Genitive / Родовий</td>
+            <td><input type="text" class="ans" id="gen_s1"></td>
+            <td><input type="text" class="ans" id="gen_s2"></td>
+            <td><input type="text" class="ans" id="gen_s3_he"></td>
+            <td><input type="text" class="ans" id="gen_s3_she"></td>
+            <td><input type="text" class="ans" id="gen_s3_it"></td>
+            <td><input type="text" class="ans" id="gen_p1"></td>
+            <td><input type="text" class="ans" id="gen_p2"></td>
+            <td><input type="text" class="ans" id="gen_p3"></td>
+        </tr>
+        <tr>
+            <td>Dative / Давальний</td>
+            <td><input type="text" class="ans" id="dat_s1"></td>
+            <td><input type="text" class="ans" id="dat_s2"></td>
+            <td><input type="text" class="ans" id="dat_s3_he"></td>
+            <td><input type="text" class="ans" id="dat_s3_she"></td>
+            <td><input type="text" class="ans" id="dat_s3_it"></td>
+            <td><input type="text" class="ans" id="dat_p1"></td>
+            <td><input type="text" class="ans" id="dat_p2"></td>
+            <td><input type="text" class="ans" id="dat_p3"></td>
+        </tr>
+        <tr>
+            <td>Accusative / Знахідний</td>
+            <td><input type="text" class="ans" id="acc_s1"></td>
+            <td><input type="text" class="ans" id="acc_s2"></td>
+            <td><input type="text" class="ans" id="acc_s3_he"></td>
+            <td><input type="text" class="ans" id="acc_s3_she"></td>
+            <td><input type="text" class="ans" id="acc_s3_it"></td>
+            <td><input type="text" class="ans" id="acc_p1"></td>
+            <td><input type="text" class="ans" id="acc_p2"></td>
+            <td><input type="text" class="ans" id="acc_p3"></td>
+        </tr>
+        <tr>
+            <td>Instrumental / Орудний</td>
+            <td><input type="text" class="ans" id="ins_s1"></td>
+            <td><input type="text" class="ans" id="ins_s2"></td>
+            <td><input type="text" class="ans" id="ins_s3_he"></td>
+            <td><input type="text" class="ans" id="ins_s3_she"></td>
+            <td><input type="text" class="ans" id="ins_s3_it"></td>
+            <td><input type="text" class="ans" id="ins_p1"></td>
+            <td><input type="text" class="ans" id="ins_p2"></td>
+            <td><input type="text" class="ans" id="ins_p3"></td>
+        </tr>
+        <tr>
+            <td>Locative / Місцевий</td>
+            <td><input type="text" class="ans" id="loc_s1"></td>
+            <td><input type="text" class="ans" id="loc_s2"></td>
+            <td><input type="text" class="ans" id="loc_s3_he"></td>
+            <td><input type="text" class="ans" id="loc_s3_she"></td>
+            <td><input type="text" class="ans" id="loc_s3_it"></td>
+            <td><input type="text" class="ans" id="loc_p1"></td>
+            <td><input type="text" class="ans" id="loc_p2"></td>
+            <td><input type="text" class="ans" id="loc_p3"></td>
+        </tr>
+
+    </table>
+
+
+
+
+
+
+
+
+
+    <div class="centered">
+        <!-- button to show hint -->
+        <!-- <button onclick="show_hint()" id="show-hint-btn" class="command-btn hint-btn">Show Hint</button> -->
+        <!-- button to call a check_answer function -->
+        <button onclick="check_answer()" id="check-ans-btn" class="command-btn ans-btn">Check Answer</button>
+    </div>
+
+    <script>
+        // global variables
+        var correct_values; // dictionary of correct values
+
+        function typeletter() {
+            // set the value of the keyboard-input to the value of the button that was pressed
+            let letter = event.target.innerText;
+            let input = document.getElementById("keyboard-input");
+            input.value += letter;
+        }
+    </script>
+
+    <!-- create buttons for all letters in Ukrainian alphabet and when they are pressed, type that letter -->
+    <h2 class="centered">Ukrainian Keyboard</h2>
+    <!-- create one input field that will hold all of our text -->
+    <div class="centered" style="margin-bottom: 20px;">
+        <input type="text" id="keyboard-input" class="input-box">
+    </div>
+    <div class="centered">
+        <!-- 3 divs based on Ukrainian keyboard layout -->
+        <div>
+            <button onclick="typeletter()" class="keyboard-btn">й</button>
+            <button onclick="typeletter()" class="keyboard-btn">ц</button>
+            <button onclick="typeletter()" class="keyboard-btn">у</button>
+            <button onclick="typeletter()" class="keyboard-btn">к</button>
+            <button onclick="typeletter()" class="keyboard-btn">е</button>
+            <button onclick="typeletter()" class="keyboard-btn">н</button>
+            <button onclick="typeletter()" class="keyboard-btn">г</button>
+            <button onclick="typeletter()" class="keyboard-btn">ш</button>
+            <button onclick="typeletter()" class="keyboard-btn">щ</button>
+            <button onclick="typeletter()" class="keyboard-btn">з</button>
+            <button onclick="typeletter()" class="keyboard-btn">х</button>
+            <button onclick="typeletter()" class="keyboard-btn">ї</button>
+            <button onclick="typeletter()" class="keyboard-btn">ґ</button>
+        </div>
+        <div>
+            <button onclick="typeletter()" class="keyboard-btn">ф</button>
+            <button onclick="typeletter()" class="keyboard-btn">і</button>
+            <button onclick="typeletter()" class="keyboard-btn">в</button>
+            <button onclick="typeletter()" class="keyboard-btn">а</button>
+            <button onclick="typeletter()" class="keyboard-btn">п</button>
+            <button onclick="typeletter()" class="keyboard-btn">р</button>
+            <button onclick="typeletter()" class="keyboard-btn">о</button>
+            <button onclick="typeletter()" class="keyboard-btn">л</button>
+            <button onclick="typeletter()" class="keyboard-btn">д</button>
+            <button onclick="typeletter()" class="keyboard-btn">ж</button>
+            <button onclick="typeletter()" class="keyboard-btn">є</button>
+        </div>
+        <div>
+            <button onclick="typeletter()" class="keyboard-btn">я</button>
+            <button onclick="typeletter()" class="keyboard-btn">ч</button>
+            <button onclick="typeletter()" class="keyboard-btn">с</button>
+            <button onclick="typeletter()" class="keyboard-btn">м</button>
+            <button onclick="typeletter()" class="keyboard-btn">и</button>
+            <button onclick="typeletter()" class="keyboard-btn">т</button>
+            <button onclick="typeletter()" class="keyboard-btn">ь</button>
+            <button onclick="typeletter()" class="keyboard-btn">б</button>
+            <button onclick="typeletter()" class="keyboard-btn">ю</button>
+        </div>
+
+        <script>
+
+
+            function check_answer() {
+            }
+
+        </script>
+</body>
+
+</html>
