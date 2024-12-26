@@ -329,10 +329,9 @@
                         input.value = "";
                     }
                     else {
-                        // remove the stress mark from the input value and the correct values
-                        let input_value = input.value.replace(/́/g, "");
-                        // console.log(`checking ${input_value} in ${correct_values}`);
-                        let correct_choices = correct_values[input.id]; // list of correct values
+                        // remove the stress mark from the input value; set both input value and correct value to lowercase
+                        let input_value = input.value.replace(/́/g, "").toLowerCase();
+                        let correct_choices = correct_values[input.id].map(choice => choice.toLowerCase()); // list of correct choices, to lowercase
                         // if the value is not empty, check if it is correct by see if it matches any of the correct values
                         if (correct_choices.includes(input_value)) {
                             // if it is correct, set the background color to green
@@ -491,13 +490,9 @@
                         }
                     }
                 }
-
             };
             // create an autocomplete object with the above settings
             const autoCompleteJS = new autoComplete(autocomplete_object);
-
-
-
         </script>
 </body>
 
