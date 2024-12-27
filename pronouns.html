@@ -182,16 +182,7 @@
             <td><input type="text" class="ans" id="loc_p2"></td>
             <td><input type="text" class="ans" id="loc_p3"></td>
         </tr>
-
     </table>
-
-
-
-
-
-
-
-
 
     <div class="centered">
         <!-- button to show hint -->
@@ -202,7 +193,63 @@
 
     <script>
         // global variables
-        var correct_values; // dictionary of correct values
+        const PREFERRED_COLOR_SCHEME = (window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+        // dictionary of correct values
+        var correct_values = { // input id : correct values
+            "nom_s1": ["я"],
+            "nom_s2": ["ти"],
+            "nom_s3_he": ["він"],
+            "nom_s3_she": ["вона"],
+            "nom_s3_it": ["воно"],
+            "nom_p1": ["ми"],
+            "nom_p2": ["ви"],
+            "nom_p3": ["вони"],
+
+            "gen_s1": ["мене"],
+            "gen_s2": ["тебе"],
+            "gen_s3_he": ["його", "нього"],
+            "gen_s3_she": ["її", "неї"],
+            "gen_s3_it": ["його", "нього"],
+            "gen_p1": ["нас"],
+            "gen_p2": ["вас"],
+            "gen_p3": ["їх", "них"],
+
+            "dat_s1": ["мені"],
+            "dat_s2": ["тобі"],
+            "dat_s3_he": ["йому"],
+            "dat_s3_she": ["їй"],
+            "dat_s3_it": ["йому"],
+            "dat_p1": ["нам"],
+            "dat_p2": ["вам"],
+            "dat_p3": ["їм"],
+
+            "acc_s1": ["мене"],
+            "acc_s2": ["тебе"],
+            "acc_s3_he": ["його", "нього"],
+            "acc_s3_she": ["її", "неї"],
+            "acc_s3_it": ["його", "нього"],
+            "acc_p1": ["нас"],
+            "acc_p2": ["вас"],
+            "acc_p3": ["їх", "них"],
+
+            "ins_s1": ["мною"],
+            "ins_s2": ["тобою"],
+            "ins_s3_he": ["ним"],
+            "ins_s3_she": ["нею"],
+            "ins_s3_it": ["ним"],
+            "ins_p1": ["нами"],
+            "ins_p2": ["вами"],
+            "ins_p3": ["ними"],
+
+            "loc_s1": ["мені"],
+            "loc_s2": ["тобі"],
+            "loc_s3_he": ["ньому", "нім"],
+            "loc_s3_she": ["ній"],
+            "loc_s3_it": ["ньому", "нім"],
+            "loc_p1": ["нас"],
+            "loc_p2": ["вас"],
+            "loc_p3": ["них"]
+        };
 
         function typeletter() {
             // set the value of the keyboard-input to the value of the button that was pressed
@@ -264,6 +311,31 @@
 
 
             function check_answer() {
+                // get all values from inputs of class "ans"
+                let inputs = document.getElementsByClassName("ans");
+                // loop through all inputs, printing their id and value
+                for (let i = 0; i < inputs.length; i++) {
+                    let input = inputs[i];
+                    // console.log(input.id, input.value);
+                    // if the value is empty after clearing whitespace, set the background color to original
+                    if (input.value.trim() === "") {
+                        input.style.backgroundColor = (PREFERRED_COLOR_SCHEME === "dark") ? "var(--input-bg-dark)" : "var(--input-bg-light)";
+                        input.value = "";
+                    }
+                    else {
+                        // remove the stress mark from the input value; set both input value and correct value to lowercase
+                        let input_value = input.value.replace(/́/g, "").toLowerCase();
+                        let correct_choices = correct_values[input.id].map(choice => choice.toLowerCase()); // list of correct choices, to lowercase
+                        // if the value is not empty, check if it is correct by see if it matches any of the correct values
+                        if (correct_choices.includes(input_value)) {
+                            // if it is correct, set the background color to green
+                            input.style.backgroundColor = (PREFERRED_COLOR_SCHEME === "dark") ? "var(--input-bg-correct-dark)" : "var(--input-bg-correct-light)";
+                        } else {
+                            // if it is incorrect, set the background color to light red
+                            input.style.backgroundColor = (PREFERRED_COLOR_SCHEME === "dark") ? "var(--input-bg-incorrect-dark)" : "var(--input-bg-incorrect-light)";
+                        }
+                    }
+                }
             }
 
         </script>
