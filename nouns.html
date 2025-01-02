@@ -195,10 +195,11 @@
             </td>
         </tr>
     </table>
-    <div id="hint" class="centered"></div>
+    <div id="definition" class="centered"></div>
     <div class="centered">
-        <!-- button to show hint -->
-        <button onclick="show_hint()" id="show-hint-btn" class="command-btn hint-btn">Show Hint</button>
+        <!-- button to show definition -->
+        <button onclick="show_definition()" id="show-definition-btn" class="command-btn definition-btn">Show
+            definition</button>
         <!-- button to call a check_answer function -->
         <button onclick="check_answer()" id="check-ans-btn" class="command-btn ans-btn">Check Answer</button>
     </div>
@@ -239,13 +240,13 @@
             let input = document.getElementById("keyboard-input");
             input.value += letter;
         }
-        function show_hint() {
-            // get the hint div
-            let hint = document.getElementById("hint");
-            // get info as the hint["info"] and hint["defs"][0]
+        function show_definition() {
+            // get the definition div
+            let definition = document.getElementById("definition");
+            // get info as the definition["info"] and definition["defs"][0]
             const info = the_noun["info"];
             const defs = the_noun["defs"];
-            hint.innerText = `Noun information: ${info}\nNoun definition: ${defs[0]}`;
+            definition.innerText = `Noun information: ${info}\nNoun definition: ${defs[0]}`;
         }
     </script>
 
@@ -306,9 +307,8 @@
         <div class="word-selection centered">
             <!-- create buttons for the first 10 nouns in the list -->
         </div>
-        <div class="centered"><button onclick="random_words_buttons(10)" class="command-btn random-words-btn">Select
-                random
-                words</button>
+        <div class="centered">
+            <button onclick="random_words_buttons(10)" class="command-btn random-words-btn">Select random words</button>
         </div>
 
 
