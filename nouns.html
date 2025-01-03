@@ -202,12 +202,35 @@
             definition</button>
         <!-- button to call a check_answer function -->
         <button onclick="check_answer()" id="check-ans-btn" class="command-btn ans-btn">Check Answer</button>
+        <!-- button to give hint -->
+        <button onclick="use_reveal()" id="give-hint-btn" class="command-btn hint-btn">Reveal Answer</button>
     </div>
 
     <script>
         // global variables
         var correct_values; // dictionary of correct values
         var the_noun; // the noun object that is currently being displayed
+        var selected_input = undefined; // the input that is currently selected
+
+        $("input.ans").on("focus", function () {
+            selected_input = this;
+        });
+
+        function use_reveal() {
+            // if selected_input is undefined, return
+            if (selected_input === undefined) { return; }
+            // get the correct value of the selected input
+            // console.log(correct_values);
+            // console.log(selected_input.id);
+            let correct_ans = correct_values[selected_input.id];
+            // if correct_ans is empty, return
+            if (correct_ans.length === 0) { return; }
+            // console.log(correct_value);
+            // select a random correct value
+            const random_index = Math.floor(Math.random() * correct_ans.length);
+            selected_input.value = correct_ans[random_index];
+
+        }
 
         function set_random_word_on_table() {
             // get a random index from 0 to the length of the nouns list
