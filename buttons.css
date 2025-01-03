@@ -98,8 +98,13 @@
     margin-top: 10px;
 }
 
-/* random words button */
-.hint-btn {
-    background-color: #b06ce0;
+/* reveal answer button */
+.reveal-ans-btn {
+    background-color: #25287d;
     margin-top: 10px;
+}
+
+/* reveal answer button when disabled */
+.reveal-ans-btn:disabled {
+    cursor: not-allowed;
 }

@@ -202,8 +202,9 @@
             definition</button>
         <!-- button to call a check_answer function -->
         <button onclick="check_answer()" id="check-ans-btn" class="command-btn ans-btn">Check Answer</button>
-        <!-- button to give hint -->
-        <button onclick="use_reveal()" id="give-hint-btn" class="command-btn hint-btn">Reveal Answer</button>
+        <!-- button to reveal answer -->
+        <button onclick="use_reveal()" disabled id="give-ans-btn" class="command-btn reveal-ans-btn">Reveal
+            Answer</button>
     </div>
 
     <script>
@@ -213,6 +214,7 @@
         var selected_input = undefined; // the input that is currently selected
 
         $("input.ans").on("focus", function () {
+            $("#give-ans-btn").prop("disabled", false);
             selected_input = this;
         });
 
