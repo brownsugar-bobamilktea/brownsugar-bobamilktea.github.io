@@ -213,8 +213,11 @@
         var the_noun; // the noun object that is currently being displayed
         var selected_input = undefined; // the input that is currently selected
 
-        $("input.ans").on("focus", function () {
-            $("#give-ans-btn").prop("disabled", false);
+        $("input.ans, #autoComplete").on("focus", function () {
+            // if "this" has class ans, enable the reveal ans button
+            if ($(this).hasClass("ans")) {
+                $("#give-ans-btn").prop("disabled", false);
+            }
             selected_input = this;
         });
 
