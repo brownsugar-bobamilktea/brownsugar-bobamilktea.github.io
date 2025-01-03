@@ -220,12 +220,9 @@
             // if selected_input is undefined, return
             if (selected_input === undefined) { return; }
             // get the correct value of the selected input
-            // console.log(correct_values);
-            // console.log(selected_input.id);
             let correct_ans = correct_values[selected_input.id];
             // if correct_ans is empty, return
             if (correct_ans.length === 0) { return; }
-            // console.log(correct_value);
             // select a random correct value
             const random_index = Math.floor(Math.random() * correct_ans.length);
             selected_input.value = correct_ans[random_index];
@@ -260,8 +257,9 @@
         function typeletter() {
             // set the value of the keyboard-input to the value of the button that was pressed
             let letter = event.target.innerText;
-            let input = document.getElementById("keyboard-input");
-            input.value += letter;
+            if (selected_input) {
+                selected_input.value += letter;
+            }
         }
         function show_definition() {
             // get the definition div
@@ -277,9 +275,9 @@
     <h2 class="centered">Ukrainian Keyboard
     </h2>
     <!-- create one input field that will hold all of our text -->
-    <div class="centered" style="margin-bottom: 20px;">
+    <!-- <div class="centered" style="margin-bottom: 20px;">
         <input type="text" id="keyboard-input" class="input-box">
-    </div>
+    </div> -->
     <div class="centered">
         <!-- 3 divs based on Ukrainian keyboard layout -->
         <div>
