@@ -1,3 +1,15 @@
+function longest_common_prefix(strs) {
+    let longest_prefix = "";
+    const lens = strs.map((s) => s.length);
+    const min_len = Math.min(...lens);
+    for (let i = 0; i < min_len; i++) {
+        const chars_set = new Set(strs.map((s) => s[i]));
+        if (chars_set.size == 1) { longest_prefix += strs[0][i]; }
+        else { break; }
+    }
+    return longest_prefix;
+};
+
 function reveal_ans(selected_input, correct_values) {
     // if selected_input is undefined, return
     if (selected_input === undefined) { return; }

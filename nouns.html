@@ -204,6 +204,8 @@
         <!-- button to call a check_answer function -->
         <button onclick="check_answer(correct_values, PREFERRED_COLOR_SCHEME)" id="check-ans-btn"
             class="command-btn ans-btn">Check Answer</button>
+        <!-- button to give hint (fill in root of all words) -->
+        <button onclick="show_prefixes(correct_values)" id="show-prefix-btn" class="command-btn">Show roots</button>
         <!-- button to reveal answer -->
         <button onclick="reveal_ans(selected_input, correct_values)" disabled id="give-ans-btn"
             class="command-btn reveal-ans-btn">Reveal
@@ -223,6 +225,27 @@
             }
             selected_input = this;
         });
+
+        function show_prefixes(correct_values) {
+            if (!correct_values) { /* console.log("correct_values is undefined"); */ return; }
+            for (const prefix of ["singular", "plural"]) {
+                // create a subdict from correct_values dict whose keys start with "singular"
+                let single_dicts = Object.fromEntries(
+                    Object.entries(correct_values).filter(([key, value]) => key.startsWith(prefix))
+                );
+                // map single_dicts (k,v) => (k, v[0])
+                let single_roots = Object.fromEntries(
+                    Object.entries(single_dicts).map(([key, value]) => [key, !!value && value.length > 0 ? value[0] : ''])
+                );
+                // give the VALUES of single_roots to longest_common_prefix()
+                let single_prefix = longest_common_prefix(Object.values(single_roots));
+                // set the text each corresponding single input to the prefix (using the key of single_roots)
+                for (let key in single_roots) {
+                    let input = document.getElementById(key);
+                    input.value = single_prefix;
+                }
+            }
+        }
 
         function set_random_word_on_table() {
             // get a random index from 0 to the length of the nouns list
@@ -438,8 +461,8 @@
             set_noun_buttons_by_indices([...Array(10).keys()]);
 
             // var the_noun = nouns[84]; // гро́ші, indeclinable
-            // var the_noun = nouns[42]; // ви́бори, plural only
             // var the_noun = nouns[0]; // Украї́на, singular only
+            // var the_noun = nouns[42]; // ви́бори, plural only
             var the_noun = nouns[1]; // рік, singular and plural
             // console.log(the_noun);
             set_table(the_noun);

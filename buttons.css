@@ -98,6 +98,11 @@
     margin-top: 10px;
 }
 
+#show-prefix-btn {
+    background-color: #1643ac;
+    margin-top: 10px;
+}
+
 /* reveal answer button */
 .reveal-ans-btn {
     background-color: #25287d;
