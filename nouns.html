@@ -239,10 +239,15 @@
                 );
                 // give the VALUES of single_roots to longest_common_prefix()
                 let single_prefix = longest_common_prefix(Object.values(single_roots));
-                // set the text each corresponding single input to the prefix (using the key of single_roots)
-                for (let key in single_roots) {
-                    let input = document.getElementById(key);
-                    input.value = single_prefix;
+                if (selected_input) {
+                    selected_input.value = single_prefix;
+                }
+                else {
+                    // set the text each corresponding single input to the prefix (using the key of single_roots)
+                    for (let key in single_roots) {
+                        let input = document.getElementById(key);
+                        input.value = single_prefix;
+                    }
                 }
             }
         }
@@ -399,6 +404,7 @@
                 $(".input-box").val("");
                 $(".input-box").css("background-color", (PREFERRED_COLOR_SCHEME === "dark") ? "var(--input-bg-dark)" : "var(--input-bg-light)");
                 $("#noun_to_guess").text(noun_obj["word"]);
+                selected_input = undefined;
 
                 // if there are no plural values, disable the inputs for the plural values
                 if (!noun_obj["forms"]["nom np"]) {
