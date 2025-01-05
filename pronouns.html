@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="./utils.js"></script>
     <link rel="stylesheet" href="./buttons.css">
     <link rel="stylesheet" href="./text-input.css">
     <style>
@@ -187,9 +188,11 @@
 
     <div class="centered">
         <!-- button to call a check_answer function -->
-        <button onclick="check_answer()" id="check-ans-btn" class="command-btn ans-btn">Check Answer</button>
+        <button onclick="check_answer(correct_values, PREFERRED_COLOR_SCHEME)" id="check-ans-btn"
+            class="command-btn ans-btn">Check Answer</button>
         <!-- button to reveal answer -->
-        <button onclick="use_reveal()" disabled id="give-ans-btn" class="command-btn reveal-ans-btn">Reveal
+        <button onclick="reveal_ans(selected_input, correct_values)" disabled id="give-ans-btn"
+            class="command-btn reveal-ans-btn">Reveal
             Answer</button>
 
     </div>
@@ -268,20 +271,6 @@
                 selected_input.value += letter;
             }
         }
-
-        function use_reveal() {
-            // if selected_input is undefined, return
-            if (selected_input === undefined) { return; }
-            // get the correct value of the selected input
-            let correct_ans = correct_values[selected_input.id];
-            // if correct_ans is empty, return
-            if (correct_ans.length === 0) { return; }
-            // select a random correct value
-            const random_index = Math.floor(Math.random() * correct_ans.length);
-            selected_input.value = correct_ans[random_index];
-
-        }
-
     </script>
 
     <!-- create buttons for all letters in Ukrainian alphabet and when they are pressed, type that letter -->
@@ -332,7 +321,7 @@
             <button onclick="typeletter()" class="keyboard-btn">ю</button>
         </div>
 
-        <script>
+        <!-- <script>
             function check_answer() {
                 // get all values from inputs of class "ans"
                 let inputs = document.getElementsByClassName("ans");
@@ -361,7 +350,7 @@
                 }
             }
 
-        </script>
+        </script> -->
 </body>
 
 </html>
