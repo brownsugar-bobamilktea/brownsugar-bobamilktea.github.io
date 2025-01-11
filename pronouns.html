@@ -320,37 +320,6 @@
             <button onclick="typeletter()" class="keyboard-btn">б</button>
             <button onclick="typeletter()" class="keyboard-btn">ю</button>
         </div>
-
-        <!-- <script>
-            function check_answer() {
-                // get all values from inputs of class "ans"
-                let inputs = document.getElementsByClassName("ans");
-                // loop through all inputs, printing their id and value
-                for (let i = 0; i < inputs.length; i++) {
-                    let input = inputs[i];
-                    // console.log(input.id, input.value);
-                    // if the value is empty after clearing whitespace, set the background color to original
-                    if (input.value.trim() === "") {
-                        input.style.backgroundColor = (PREFERRED_COLOR_SCHEME === "dark") ? "var(--input-bg-dark)" : "var(--input-bg-light)";
-                        input.value = "";
-                    }
-                    else {
-                        // remove the stress mark from the input value; set both input value and correct value to lowercase
-                        let input_value = input.value.replace(/́/g, "").toLowerCase();
-                        let correct_choices = correct_values[input.id].map(choice => choice.toLowerCase()); // list of correct choices, to lowercase
-                        // if the value is not empty, check if it is correct by see if it matches any of the correct values
-                        if (correct_choices.includes(input_value)) {
-                            // if it is correct, set the background color to green
-                            input.style.backgroundColor = (PREFERRED_COLOR_SCHEME === "dark") ? "var(--input-bg-correct-dark)" : "var(--input-bg-correct-light)";
-                        } else {
-                            // if it is incorrect, set the background color to light red
-                            input.style.backgroundColor = (PREFERRED_COLOR_SCHEME === "dark") ? "var(--input-bg-incorrect-dark)" : "var(--input-bg-incorrect-light)";
-                        }
-                    }
-                }
-            }
-
-        </script> -->
 </body>
 
 </html>
